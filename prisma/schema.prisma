@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js" // Optional if you're using Prisma's Node.js client
+}
+
+datasource db {
+  provider = "mysql" // Ensure your database is MySQL (or update to your database provider)
+  url      = env("DATABASE_URL") // Database connection string in .env file
+}
+
+model User {
+  id        Int      @id @default(autoincrement()) // Primary key
+  name      String
+  email     String   @unique // Email must be unique
+  password  String
+  roleId    Int      // Foreign key to Role table
+  createdAt DateTime @default(now()) // Automatically set the current timestamp
+
+  Role      Role     @relation(fields: [roleId], references: [id]) // Relation to Role table
+  Orders    Order[]  // One-to-many relation to Order table
+}
+
+model Role {
+  id        Int      @id @default(autoincrement()) // Primary key
+  roleName  String   @unique // Role name must be unique
+  Users     User[]   // One-to-many relation to User table
+}
+
+model Product {
+  id          Int      @id @default(autoincrement()) // Primary key
+  name        String
+  description String?  // Optional description
+  price       Float    // Product price
+  stock       Int      // Number of items in stock
+  createdAt   DateTime @default(now()) // Automatically set the current timestamp
+}
+
+model Order {
+  id        Int      @id @default(autoincrement()) // Primary key
+  userId    Int      // Foreign key to User table
+  total     Float    // Order total
+  createdAt DateTime @default(now()) // Automatically set the current timestamp
+
+  User      User     @relation(fields: [userId], references: [id]) // Relation to User table
+}
+

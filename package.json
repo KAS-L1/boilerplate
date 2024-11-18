@@ -1,0 +1,23 @@
+{
+  "name": "magalusi",
+  "version": "1.0.0",
+  "main": "\"\"",
+  "scripts": {
+    "prisma": "npx prisma",
+    "prisma:format": "npx prisma format",
+    "prisma:generate": "npx prisma generate",
+    "prisma:db-push": "npx prisma db push",
+    "prisma:migrate": "npx prisma migrate dev --name init",
+    "prisma:sync": "npx prisma migrate deploy",
+    "prisma:seed": "npx prisma db seed",
+    "prisma:studio": "npx prisma studio",
+    "generate": "node scripts/gen-prisma.js && npx prisma migrate dev"
+  },
+  "author": "Kupals",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "prisma": "^5.22.0"
+  }
+}
